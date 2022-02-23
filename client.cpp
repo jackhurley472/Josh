@@ -1,12 +1,14 @@
 #include <iostream>
 #include <signal.h>
 
-// include path to files
+// include path to files if not in current directory
 #include "cpp-httplib-master/httplib.h" // for HTTP
 #include "json-develop/single_include/nlohmann/json.hpp" // for JSON
 
 using json = nlohmann::ordered_json;
 using namespace std;
+
+#define HOST "localhost" // use if simulator is running on localhost:80
 
 // parses string and returns vector of substrings
 vector<string> parser(string s, char c) {
@@ -113,7 +115,7 @@ void addBrightness(vector<int> &brightness, string state) {
 
 // get the on/off states of the lights
 vector<bool> getSwitches(vector<string> lights, vector<string> ids) {
-    httplib::Client cli("localhost");
+    httplib::Client cli(HOST);
     vector<bool> switches;
     for (int i = 0; i < lights.size(); i++) {
 
@@ -141,7 +143,7 @@ vector<bool> getSwitches(vector<string> lights, vector<string> ids) {
 
 // get the brightness states of the lights
 vector<int> getBrightness(vector<string> lights, vector<string> ids) {
-    httplib::Client cli("localhost");
+    httplib::Client cli(HOST);
     vector<int> brightness;
     for (int i = 0; i < lights.size(); i++) {
 
@@ -169,7 +171,7 @@ vector<int> getBrightness(vector<string> lights, vector<string> ids) {
 
 // gets strings each containing both ids and names of all the lights
 vector<string> getLights() {
-    httplib::Client cli("localhost");
+    httplib::Client cli(HOST);
     auto res1 = cli.Get("/api/newdeveloper/lights");
     string s;
     if (res1) {
