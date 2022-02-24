@@ -19,3 +19,4 @@ Other notes:
     of (0, 254) when calculating brightness percentage. 
   - Use "ctrl+c" to exit the program gracefully.
     Also, program exits gracefully when it loses connection.
+  - The executable file is for macOS.
